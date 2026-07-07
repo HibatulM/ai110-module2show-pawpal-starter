@@ -2,6 +2,32 @@
 
 ## 1. System Design
 
+- User must be able to create tasks and edit them at will 
+- User needs a daily plan based on the provided constraints such as time 
+- User's daily plan must include tasks that were mentioned once but have to be repeated, this could be an option when creating a task 
+
+- Pet Class 
+- User/Owner Class
+- Tasks Class 
+- Schedule Class 
+
+Attributes 
+Pet Class: Name, type of animal, age, dietary restrictions, breed, vet, tasks list, medications, tasks, id
+Schedule: Days of Week, Time blocked, Time Free, tasks to schedule
+Tasks: Pet, task description, repeat task (boolean), task completed, priority, location of task, task duration, task scheduled time, task id 
+Owner: Number of pets, Schedule, Number of tasks, preferences, pet list, tasks list  
+
+Methods
+Pet Class: Get pet information (include medication), get task list, add task, remove task
+Schedule: add free time, block time for task, block time for repeated task, add busy time, reschedule tasks, get upcoming tasks for day, get upcoming tasks for week, get upcoming tasks for month, change time for a repeated task once, change time for a task, 
+Tasks: Add/remove tasks, mark task completed, change priority of tasks,
+Owner: add/remove pet, get schedule, generate schedule for all pets, add time constraints, generate schedule for one pet, add/remove preferences 
+
+Relation ship between classes 
+Tasks -> Pet -> Owner 
+Schedule -> Owner 
+
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.
