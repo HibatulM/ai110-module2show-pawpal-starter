@@ -1,15 +1,70 @@
 classDiagram
-    %% Replace the placeholders below with your actual classes, attributes, methods, and relationships.
-    %% Keep this file updated so it matches your final implementation.
-
-    class ClassName {
-        +type attribute
-        +method() returnType
+    class Pet {
+        +String id
+        +String name
+        +String animalType
+        +int age
+        +String breed
+        +String vet
+        +String[] dietaryRestrictions
+        +String[] medications
+        +Task[] tasks
+        +getPetInfo() String
+        +getTaskList() Task[]
+        +addTask(task Task) void
+        +removeTask(task Task) void
     }
 
-    class AnotherClass {
-        +type attribute
-        +method() returnType
+    class Owner {
+        +int numberOfPets
+        +int numberOfTasks
+        +Schedule schedule
+        +Pet[] petList
+        +Task[] tasksList
+        +Map preferences
+        +addPet(pet Pet) void
+        +removePet(pet Pet) void
+        +getSchedule() Schedule
+        +generateScheduleForAllPets() Schedule
+        +generateScheduleForOnePet(pet Pet) Schedule
+        +addTimeConstraints(constraint TimeConstraint) void
+        +addPreference(key String, value String) void
+        +removePreference(key String) void
     }
 
-    ClassName --> AnotherClass : relationship
+    class Task {
+        +String id
+        +Pet pet
+        +String description
+        +boolean repeatTask
+        +boolean taskCompleted
+        +int priority
+        +String location
+        +int duration
+        +DateTime scheduledTime
+        +addTask(task Task) void
+        +removeTask(task Task) void
+        +markCompleted() void
+        +changePriority(priority int) void
+    }
+
+    class Schedule {
+        +String[] daysOfWeek
+        +TimeBlock[] timeBlocked
+        +TimeBlock[] timeFree
+        +Task[] tasksToSchedule
+        +addFreeTime(block TimeBlock) void
+        +blockTimeForTask(task Task) void
+        +blockTimeForRepeatedTask(task Task) void
+        +addBusyTime(block TimeBlock) void
+        +rescheduleTasks() void
+        +getUpcomingTasksForDay() Task[]
+        +getUpcomingTasksForWeek() Task[]
+        +getUpcomingTasksForMonth() Task[]
+        +changeTimeForRepeatedTaskOnce(task Task, time DateTime) void
+        +changeTimeForTask(task Task, time DateTime) void
+    }
+
+    Task --> Pet : belongs to
+    Pet --> Owner : owned by
+    Schedule --> Owner : belongs to
