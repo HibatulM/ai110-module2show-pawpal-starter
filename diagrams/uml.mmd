@@ -8,6 +8,7 @@ classDiagram
         +String vet
         +String[] dietaryRestrictions
         +String[] medications
+        +Owner owner
         +Task[] tasks
         +getPetInfo() String
         +getTaskList() Task[]
@@ -16,18 +17,21 @@ classDiagram
     }
 
     class Owner {
-        +int numberOfPets
-        +int numberOfTasks
         +Schedule schedule
         +Pet[] petList
         +Task[] tasksList
         +Map preferences
+        +int numberOfPets
+        +int numberOfTasks
         +addPet(pet Pet) void
         +removePet(pet Pet) void
+        +addTask(task Task) void
+        +removeTask(task Task) void
+        +getAllTasks() Task[]
+        +getTasksForPet(pet Pet) Task[]
         +getSchedule() Schedule
         +generateScheduleForAllPets() Schedule
         +generateScheduleForOnePet(pet Pet) Schedule
-        +addTimeConstraints(constraint TimeConstraint) void
         +addPreference(key String, value String) void
         +removePreference(key String) void
     }
@@ -36,27 +40,28 @@ classDiagram
         +String id
         +Pet pet
         +String description
-        +boolean repeatTask
-        +boolean taskCompleted
+        +DateTime scheduledTime
+        +String frequency
         +int priority
         +String location
         +int duration
-        +DateTime scheduledTime
-        +addTask(task Task) void
-        +removeTask(task Task) void
-        +markCompleted() void
+        +DateTime completedTime
+        +boolean taskCompleted
+        +boolean repeatTask
+        +markCompleted(completedTime DateTime) void
         +changePriority(priority int) void
     }
 
     class Schedule {
+        +Owner owner
         +String[] daysOfWeek
-        +TimeBlock[] timeBlocked
-        +TimeBlock[] timeFree
-        +Task[] tasksToSchedule
-        +addFreeTime(block TimeBlock) void
+        +Time workStart
+        +Time workEnd
+        +DateTime[][] blockedTimes
+        +isTimeFree(start DateTime, end DateTime) boolean
+        +findFreeSlot(duration int, after DateTime) DateTime
         +blockTimeForTask(task Task) void
         +blockTimeForRepeatedTask(task Task) void
-        +addBusyTime(block TimeBlock) void
         +rescheduleTasks() void
         +getUpcomingTasksForDay() Task[]
         +getUpcomingTasksForWeek() Task[]
@@ -68,3 +73,4 @@ classDiagram
     Task --> Pet : belongs to
     Pet --> Owner : owned by
     Schedule --> Owner : belongs to
+    Owner --> Schedule : has
